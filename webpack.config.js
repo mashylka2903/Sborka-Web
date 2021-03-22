@@ -2,10 +2,9 @@ const {resolve} = require('path'); //функция nodeJS
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin= require('mini-css-extract-plugin');
+
 const path = require('path');
 const SRC = path.resolve(__dirname, './src/');
-//const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
-
 //const BundleAnalyzerPlugin = require('webpack-bundle-analyzer');
 
 module.exports = {
@@ -13,7 +12,10 @@ module.exports = {
     output: {
         path: resolve(__dirname, "build"),
         //filename: "main.bundle.js"
-        filename: "main.[contenthash].js" // созд файла с хешом
+        filename: "[name].[contenthash].js" // созд файла с хешом
+    },
+    externals: {
+        lodash: '_',
     },
     module: {
         rules:[
@@ -31,12 +33,12 @@ module.exports = {
               ], //2 загрузчика установим для css и один для scss // лоадеры загружаются справа налево последовательность важна
         }, 
         {
-            test: /\.mp3$/,
-            include: SRC,
-            use: 'file-loader'          
+            test: /\.mp3$/, 
+            loader: 'file-loader'                     
         },    
         ]
     },
+        
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
@@ -45,7 +47,6 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: "[name].[contenthash].css"
         }),
-       // new BundleAnalyzerPlugin(),
-       //new LodashModuleReplacementPlugin(),
+       // new BundleAnalyzerPlugin()       
     ]
 };

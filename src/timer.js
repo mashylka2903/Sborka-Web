@@ -3,6 +3,9 @@ const timerForm = document.getElementById('timercount'),
       buttonStart = document.getElementById('start'),
       buttonStop = document.getElementById('stop');
 
+import notification from './Fireball.mp3';   
+
+const chunk = require('lodash/chunk');
 let num = document.getElementById('timerNumber');
 
 
@@ -31,8 +34,7 @@ const timer = setInterval(function () {
          }
     --num;
     if( num == 0) {
-    
-            let sound = new Audio('./src/Fireball.mp3');
+            let sound = new Audio(notification);
             sound.play(); }
 }, 1000);
 
@@ -43,4 +45,5 @@ buttonStop.addEventListener("click", function(event) {
 });
 
 }
+
 
