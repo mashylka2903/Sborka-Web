@@ -13,7 +13,7 @@ function handleTimer(event){
     timerResult.innerHTML="";
     event.preventDefault();
 
-    num = parseInt(num.value) * 60;
+    num = +(num.value) * 60;
 
 
 const timer = setInterval(function () {
@@ -23,16 +23,19 @@ const timer = setInterval(function () {
     
     if (num <= 0) {
         clearInterval(timer);        
-        let audio = new Audio('../Fireball.mp3');
-        audio.play();
+        
     } else { 
         let strTimer = `
         ${Math.trunc(hour)} час(ов) : ${Math.trunc(minutes)} минут(ы) : ${Math.trunc(seconds)} секунд(ы)`;
         timerResult.innerHTML = strTimer;
-    }
+         }
     --num;
+    if( num == 0) {
     
+            let sound = new Audio('./src/Fireball.mp3');
+            sound.play(); }
 }, 1000);
+
 
 buttonStop.addEventListener("click", function(event) {
     event.preventDefault();
@@ -40,3 +43,4 @@ buttonStop.addEventListener("click", function(event) {
 });
 
 }
+
